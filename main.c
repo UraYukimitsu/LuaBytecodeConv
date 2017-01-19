@@ -121,7 +121,7 @@ int main(int argc, char **argv)
 			if(arg < 0)
 			{
 				arg = -arg - 1;
-				if(b->Bsp && Bx) arg |= 1 << (tmp - 1);
+				if(b->Bsp || b->B == Bs)arg |= 1 << (tmp - 1);
 			}
 			ret = ret | arg << used;
 			used += tmp;
