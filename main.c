@@ -111,8 +111,10 @@ int main(int argc, char **argv)
 				arg |= 1 << (tmp - 1);
 			}
 			ret = ret | arg << used;
-			used += tmp;
+			//used += tmp;
 		}
+		
+		used += b->C;
 
 		if(argc > 3)
 		{
