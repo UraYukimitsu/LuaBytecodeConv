@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 	Bytecode *tbl[40];
 	Bytecode *b = NULL;
 	int ret = 0, arg = 0;
-	int i = 0, used = 0, tmp = 0;
+	int i = 0, used = 0, tmp = 0, Bx = 0;
 	tbl[0]  = new_B("MOVE",      0, As , Bs , Cs, 0);
 	tbl[1]  = new_B("LOADK",     1, As , Bxs, 0 , 0);
 	tbl[2]  = new_B("LOADKX",    2, As , Bs , Cs, 0);
@@ -100,28 +100,28 @@ int main(int argc, char **argv)
 		ret = ret | arg << used;
 		used += b->A;
 
-		if(argc > 3)
+		if(argc > 4)
 		{
-			arg = atoi(argv[3]);
-			tmp = b->B;
-			if(!tmp) {used += Bs; tmp = b->C;}
+			arg = atoi(argv[4]);
+			tmp = b->C;
+			if(!tmp) {used += Cs; tmp = b->B;}
 			if(arg < 0)
 			{
 				arg = -arg - 1;
-				if(b->Bsp) arg |= 1 << (tmp - 1);
+				arg |= 1 << (tmp - 1);
 			}
 			ret = ret | arg << used;
 			used += tmp;
 		}
 
-		if(argc > 4)
+		if(argc > 3)
 		{
-			arg = atoi(argv[4]);
-			tmp = b->C;
+			arg = atoi(argv[3]);
+			tmp = b->B;
 			if(arg < 0)
 			{
 				arg = -arg - 1;
-				arg |= 1 << (tmp - 1);
+				if(b->Bsp && Bx) arg |= 1 << (tmp - 1);
 			}
 			ret = ret | arg << used;
 			used += tmp;
