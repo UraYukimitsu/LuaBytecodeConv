@@ -111,7 +111,6 @@ int main(int argc, char **argv)
 				arg |= 1 << (tmp - 1);
 			}
 			ret = ret | arg << used;
-			//used += tmp;
 		}
 		
 		used += b->C;
@@ -120,10 +119,12 @@ int main(int argc, char **argv)
 		{
 			arg = atoi(argv[3]);
 			tmp = b->B;
+			if(b->Bsp)
+				arg = -arg;
 			if(arg < 0)
 			{
 				arg = -arg - 1;
-				if(b->Bsp || b->B == Bs)arg |= 1 << (tmp - 1);
+				if(b->Bsp || b->B == Bs) arg |= 1 << (tmp - 1);
 			}
 			ret = ret | arg << used;
 			used += tmp;
